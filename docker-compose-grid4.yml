@@ -31,7 +31,10 @@ services:
       - SE_EVENT_BUS_HOST=selenium-event-bus
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-
+      - SE_SESSIONQUEUE_REQUEST_TIMEOUT=700
+      - SE_SESSION_REQUEST_TIMEOUT=700      
+      - SE_OPTS=--session-request-timeout 700
+      
   selenium-distributor:
     image: selenium/distributor:4.0.0-rc-1-prerelease-20210823
     container_name: selenium-distributor
