@@ -1,7 +1,7 @@
 version: "3"
 services:
   selenium-event-bus:
-    image: selenium/event-bus:4.0.0-rc-1-20210902
+    image: selenium/event-bus:4.0.0-rc-2-prerelease-20210907
     container_name: selenium-event-bus
     ports:
       - "4442:4442"
@@ -9,7 +9,7 @@ services:
       - "5557:5557"
 
   selenium-sessions:
-    image: selenium/sessions:4.0.0-rc-1-20210902
+    image: selenium/sessions:4.0.0-rc-2-prerelease-20210907
     container_name: selenium-sessions
     ports:
       - "5556:5556"
@@ -21,7 +21,7 @@ services:
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
   selenium-session-queue:
-    image: selenium/session-queue:4.0.0-rc-1-20210902
+    image: selenium/session-queue:4.0.0-rc-2-prerelease-20210907
     container_name: selenium-session-queue
     ports:
       - "5559:5559"
@@ -34,7 +34,7 @@ services:
       - SE_SESSION_REQUEST_TIMEOUT=700
 
   selenium-distributor:
-    image: selenium/distributor:4.0.0-rc-1-20210902
+    image: selenium/distributor:4.0.0-rc-2-prerelease-20210907
     container_name: selenium-distributor
     ports:
       - "5553:5553"
@@ -52,7 +52,7 @@ services:
       - SE_SESSION_QUEUE_PORT=5559
 
   selenium-router:
-    image: selenium/router:4.0.0-rc-1-20210902
+    image: selenium/router:4.0.0-rc-2-prerelease-20210907
     container_name: selenium-router
     ports:
       - "4444:4444"
@@ -67,9 +67,10 @@ services:
       - SE_SESSIONS_MAP_PORT=5556
       - SE_SESSION_QUEUE_HOST=selenium-session-queue
       - SE_SESSION_QUEUE_PORT=5559
-
+      - SE_OPTS=--log-level FINE
+      
   chrome:
-    image: selenium/node-chrome:4.0.0-rc-1-20210902
+    image: selenium/node-chrome:4.0.0-rc-2-prerelease-20210907
     shm_size: 2gb
     depends_on:
       - selenium-event-bus
@@ -77,5 +78,6 @@ services:
       - SE_EVENT_BUS_HOST=selenium-event-bus
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_SESSION_REQUEST_TIMEOUT=700
     ports:
       - "6900-6913:6900"
